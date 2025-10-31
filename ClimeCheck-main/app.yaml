@@ -1,0 +1,18 @@
+runtime: python312  # Updated to Python 3.12
+
+entrypoint: gunicorn -b :$PORT weatherapp:app  # Adjust 'main' and 'app' to match your project setup
+
+# Environment variables (API keys can be stored here or in Google Cloud Secret Manager)
+env_variables:
+  TOMORROW_API_KEY: 'ba6h2MiL8l1tRWFQtWnR3ce8bsC3s1Ca'
+  GOOGLE_MAPS_API_KEY: 'AIzaSyCI6KxsjrjvKqKpqCSlwrdgzzqbigRJ-jk'
+  IPINFO_API_KEY: '28f772be3811cd'
+
+# Serve static files (HTML, CSS, JS)
+handlers:
+  - url: /static
+    static_dir: static
+
+# Catch-all handler to route all other requests to the application
+  - url: /.*
+    script: auto
